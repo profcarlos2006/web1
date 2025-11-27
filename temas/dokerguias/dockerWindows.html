@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Rápido: Usar Imagem Docker do Colega</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">⬅️ Voltar à Home</a>
+            
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="../index.html">Index Principal</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="dockerWindows.html">Utilizar um Share</a></li>
+                <li class="nav-item"><a class="nav-link" href="bashlinux.html">Linux Comandos</a></li>
+                <li class="nav-item"><a class="nav-link" href="partilhar-imagem.html">Partilhar Imagem</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <h1 class="text-primary mb-4">Guia Rápido: Como Executar o Projeto Docker com `docker-compose.yml`</h1>
+
+        <p class="lead">Este guia explica como iniciar o contentor usando uma imagem pré-construída (`profcarlos2006/nginx-testedocker13`) e garantir que pode editar os ficheiros localmente usando **Volumes**.</p>
+
+        <hr>
+
+        <h2 class="mt-5">1. Estrutura de Ficheiros</h2>
+        <p>Na sua pasta de projeto, crie a seguinte estrutura:</p>
+        <ul class="list-group mb-4">
+            <li class="list-group-item"><strong><code>docker-compose.yml</code></strong> (O ficheiro de configuração)</li>
+            <li class="list-group-item">**Pasta <code>site/</code>** (Onde guardará o seu <code>index.html</code> e outros ficheiros de desenvolvimento)</li>
+        </ul>
+
+        <h2 class="mt-5">2. Conteúdo do <code>docker-compose.yml</code></h2>
+        <p>Guarde o código abaixo no ficheiro **<code>docker-compose.yml</code>**. Ele irá puxar a imagem do Docker Hub e montar a pasta local <code>./site</code>.</p>
+        <div class="bg-dark text-white p-3 rounded">
+            <pre><code>version: '3.8'
+
+services:
+  web:
+    # A imagem partilhada no Docker Hub
+    image: profcarlos2006/nginx-testedocker13:latest
+    container_name: nginx-carlos-teste
+
+    # Mapeamento de portas (8080 local -> 80 do contentor)
+    ports:
+      - "8080:80"
+
+    # O VOLUME (Bind Mount): Liga a sua pasta "site" ao servidor web do contentor
+    volumes:
+      - ./site:/usr/share/nginx/html
+
+    restart: always</code></pre>
+        </div>
+
+        <h2 class="mt-5">3. Execução e Acesso</h2>
+        <p>No terminal (na mesma pasta onde está o <code>docker-compose.yml</code>), execute o seguinte comando:</p>
+
+        <h3 class="mt-3">Comando de Arranque</h3>
+        <div class="bg-dark text-white p-3 rounded">
+            <pre><code>docker compose up -d</code></pre>
+        </div>
+        <p class="text-muted">Nota: O Docker irá simplesmente puxar a imagem e iniciar o contentor.</p>
+
+        <div class="alert alert-warning mt-4">
+            <h3>&#9888; Como Aceder à Aplicação</h3>
+            <p>Aceda ao servidor web através do seu navegador em: **http://localhost:8080/**</p>
+            <p>Qualquer alteração que faça nos ficheiros dentro da sua pasta **<code>site</code>** será refletida imediatamente ao recarregar a página.</p>
+        </div>
+
+        <h2 class="mt-5">4. Comandos de Manutenção</h2>
+        <p>Quando terminar o trabalho, use o comando para parar e remover o contentor:</p>
+        <div class="bg-dark text-white p-3 rounded">
+            <pre><code>docker compose down</code></pre>
+        </div>
+        
+        <a href="../index.html" class="btn btn-primary btn-lg mt-4">Voltar à página inicial</a>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
