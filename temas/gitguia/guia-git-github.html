@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Completo de Git e GitHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .code-block {
+            background-color: #272822; /* Fundo escuro para código (Monokai-like) */
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .section-header {
+            border-left: 5px solid #007bff;
+            padding-left: 15px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">⬅️ Voltar à Home</a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="#glossario">Glossário</a></li>
+                <li class="nav-item"><a class="nav-link" href="#fluxo-a">GitHub p/ PC</a></li>
+                <li class="nav-item"><a class="nav-link" href="#fluxo-b">PC p/ GitHub</a></li>
+                <li class="nav-item"><a class="nav-link" href="#gh-pages">GitHub Pages</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <h1 class="text-primary mb-4">Guia Prático: Fluxo de Trabalho com Git e GitHub</h1>
+
+        <p class="lead">Este guia cobre os três principais fluxos de trabalho com o sistema de controlo de versões Git e a plataforma de *hosting* GitHub. Esteja sempre atento à autenticação via **Token**.</p>
+        <hr>
+
+        <div class="card bg-light mb-5">
+            <div class="card-header">
+                <h5 class="mb-0">Sumário</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="#glossario" class="text-decoration-none">1. Glossário Essencial de Comandos</a></li>
+                <li class="list-group-item"><a href="#fluxo-a" class="text-decoration-none">2. Fluxo A: Do GitHub para o PC (Clone - Commit - Push)</a></li>
+                <li class="list-group-item"><a href="#fluxo-b" class="text-decoration-none">3. Fluxo B: Do PC para o GitHub (Init - Add - Commit - Push)</a></li>
+                <li class="list-group-item"><a href="#gh-pages" class="text-decoration-none">4. Fluxo C: Web Pages com GitHub (GitHub Pages)</a></li>
+            </ul>
+        </div>
+
+        <h2 id="glossario" class="section-header text-primary">1. Glossário Essencial de Comandos</h2>
+        <p class="mt-3">Abaixo estão os comandos fundamentais utilizados neste guia:</p>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Comando/Termo</th>
+                        <th>Função</th>
+                        <th>Comando de Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>**`repo`**</td>
+                        <td>Repositório. O projeto onde o histórico de versões é guardado.</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>**`commit`**</td>
+                        [cite_start]<td>Guarda uma "fotografia" (*snapshot*) do estado atual dos ficheiros que foram preparados (*staged*) no seu repositório local[cite: 166].</td>
+                        [cite_start]<td>`git commit -a -m "Mensagem"` [cite: 166]</td>
+                    </tr>
+                    <tr>
+                        <td>**`clone`**</td>
+                        [cite_start]<td>Copia (clona) um REPO da nuvem (GitHub) para o nosso PC[cite: 166].</td>
+                        <td>`git clone https://www.merriam-webster.com/dictionary/repo`</td>
+                    </tr>
+                    <tr>
+                        <td>**`add`**</td>
+                        <td>Adiciona as alterações (novos ou modificados) à área de preparação (*staging area*) para o próximo commit.</td>
+                        <td>`git add .` (Adiciona todos os ficheiros modificados)</td>
+                    </tr>
+                    <tr>
+                        <td>**`push`**</td>
+                        [cite_start]<td>Envia as alterações do repositório local (commits) para o GitHub (nuvem)[cite: 166].</td>
+                        [cite_start]<td>`git push origin main` [cite: 219]</td>
+                    </tr>
+                    <tr>
+                        <td>**`pull`**</td>
+                        [cite_start]<td>Trazer as alterações mais recentes do GitHub para o repositório local[cite: 166].</td>
+                        <td>`git pull origin main`</td>
+                    </tr>
+                    <tr>
+                        <td>**`status`**</td>
+                        <td>Mostra o estado da pasta de trabalho e da área de preparação (ficheiros modificados, preparados ou não monitorizados).</td>
+                        <td>`git status`</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 id="fluxo-a" class="section-header text-primary">2. Fluxo A: Do GitHub para o PC (Clone - Commit - Push)</h2>
+        [cite_start]<p class="mt-3">Este é o processo mais comum para começar a trabalhar num projeto que já existe no GitHub[cite: 176].</p>
+
+        <div class="card p-3 mb-4 bg-light">
+            <h4 class="card-title text-danger">Passos do Fluxo</h4>
+            <ol>
+                [cite_start]<li>Criação do Repositório (REPO) no GitHub (Pode incluir `Readme.md`)[cite: 170, 177].</li>
+                [cite_start]<li>O REPO é **clonado** para o PC local[cite: 171].</li>
+                [cite_start]<li>Geração do **Token** e Autenticação no REPO (necessário para *push* em muitas configurações)[cite: 172, 179].</li>
+                [cite_start]<li>**`commit`**: As alterações locais são guardadas[cite: 173].</li>
+                [cite_start]<li>**`push`**: As alterações são enviadas para a nuvem[cite: 174].</li>
+            </ol>
+        </div>
+
+        <h3 class="mt-4 text-secondary">A.1. Clonar o Repositório</h3>
+        <p>Use o URL do GitHub (HTTPS) para descarregar o REPO para o seu PC.</p>
+        <div class="code-block">
+            <p class="text-success small">CMD - Trazer o repo para o pc</p>
+            <pre><code>C:\GitLab\Projetos> git clone https://github.com/profcarlos2006/novo5.git</code></pre>
+            <p class="text-warning small">Resposta:</p>
+            <pre><code>Cloning into 'novo5'...
+remote: Enumerating objects: 3, done.
+...
+Receiving objects: 100% (3/3), done.</code></pre>
+        </div>
+
+        <h3 class="mt-4 text-secondary">A.2. Autenticação (Configuração Inicial)</h3>
+        <p>Antes de fazer o primeiro *commit*, autentique-se, se necessário, e configure a sua identidade Git.</p>
+        <div class="code-block">
+            <p class="text-success small">CMD - Configurar utilizador (apenas na primeira vez)</p>
+            <pre><code>git config --global user.name "profcarlos2006"
+git config --global user.email "profcarlos2006@gmail.com"</code></pre>
+        </div>
+        <p class="mt-3">**Importante:** Gere um **Token** no GitHub (Settings > Developer Settings) e guarde-o num local seguro. [cite_start]Será necessário para o comando `git push`[cite: 179, 181, 182, 183, 184, 186, 187].</p>
+
+        <h3 class="mt-4 text-secondary">A.3. Fazer Alterações e Commit</h3>
+        [cite_start]<p>Depois de fazer as alterações (e.g., alterar o ficheiro `Readme.md`), use `git commit` para as guardar localmente[cite: 204].</p>
+        
+        <p>Primeiro, verifique o estado:</p>
+        <div class="code-block">
+            <pre><code>C:\GitLab\Projetos\novo5>git status</code></pre>
+            <p class="text-warning small">Resposta (Alterações não preparadas):</p>
+            <pre><code>Changes not staged for commit:
+    modified:   README.md</code></pre>
+        </div>
+
+        <p>Em seguida, faça o commit (usando a flag **`-a`** para incluir automaticamente os ficheiros modificados):</p>
+        <div class="code-block">
+            <pre><code>C:\GitLab\Projetos\novo5>git commit -a -m "primeira alteração ao novo 5"</code></pre>
+            <p class="text-warning small">Resposta (Commit efetuado):</p>
+            <pre><code>[main a2e7211] primeira alteração ao novo 5
+1 file changed, 2 insertions(+), 1 deletion(-)</code></pre>
+        </div>
+
+        <h3 class="mt-4 text-secondary">A.4. Enviar para a Nuvem (Push)</h3>
+        [cite_start]<p>O `push` envia os commits locais para o repositório remoto no GitHub[cite: 218].</p>
+        <div class="code-block">
+            <p class="text-success small">CMD - Enviar os ficheiros para a nuvem</p>
+            <pre><code>C:\GitLab\Projetos\novo5>git push origin main</code></pre>
+            <p class="text-warning small">Resposta:</p>
+            <pre><code>...
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/profcarlos2006/novo5.git
+3fedd54..a2e7211  main -> main</code></pre>
+        </div>
+
+        <h2 id="fluxo-b" class="section-header text-primary">3. Fluxo B: Do PC para o GitHub (Init - Add - Commit - Push)</h2>
+        [cite_start]<p class="mt-3">Este fluxo é usado quando tem um projeto local existente e deseja começar a controlá-lo com Git e colocá-lo no GitHub pela primeira vez[cite: 229].</p>
+
+        <h3 class="mt-4 text-secondary">B.1. Inicializar o Repositório Local</h3>
+        [cite_start]<p>Transforme a pasta do seu projeto num Repositório Git local[cite: 232].</p>
+        <div class="code-block">
+            <p class="text-success small">CMD - Transformar a pasta num REPO</p>
+            <pre><code>C:\GitLab\Projetos\novo6>git init</code></pre>
+            <p class="text-warning small">Resposta:</p>
+            <pre><code>Initialized empty Git repository in C:/GitLab/Projetos/novo6/.git/</code></pre>
+            <p class="text-success small">CMD - Verificar o estado (os ficheiros ainda não estão monitorizados)</p>
+            <pre><code>C:\GitLab\Projetos\novo6>git status</code></pre>
+            <p class="text-warning small">Resposta:</p>
+            <pre><code>Untracked files:
+        readme.txt</code></pre>
+        </div>
+
+        <h3 class="mt-4 text-secondary">B.2. Preparar e Cometer Ficheiros (Add e Commit)</h3>
+        [cite_start]<p>Use `git add .` para preparar todos os ficheiros e `git commit` para guardar a primeira versão[cite: 232].</p>
+        <div class="code-block">
+            <p class="text-success small">CMD - Preparar os ficheiros para commit</p>
+            <pre><code>C:\GitLab\Projetos\novo6> git add .</code></pre>
+            <p class="text-success small">CMD - Fazer o primeiro commit</p>
+            <pre><code>C:\GitLab\Projetos\novo6>git commit -a -m "primeiro commit do novo6"</code></pre>
+            <p class="text-warning small">Resposta:</p>
+            <pre><code>[master (root-commit) 94621fc] primeiro commit do novo6
+1 file changed, 1 insertion(+)</code></pre>
+        </div>
+
+        <h3 class="mt-4 text-secondary">B.3. Ligar ao GitHub e Fazer Push</h3>
+        <p>Crie um REPO vazio no GitHub. Depois, ligue o seu REPO local ao REPO remoto e envie os ficheiros.</p>
+        <div class="code-block">
+            <p class="text-success small">CMD - Ligar o REPO local ao REPO no GitHub (URL do REPO Vazio)</p>
+            <pre><code>C:\GitLab\Projetos\novo6>git remote add origin https://github.com/profcarlos2006/novo6.git</code></pre>
+            <p class="text-success small">CMD - Enviar para GitHub</p>
+            <pre><code>C:\GitLab\Projetos\novo6>git push origin master</code></pre>
+            <p class="text-warning small">Resposta:</p>
+            <pre><code>...
+To https://github.com/profcarlos2006/novo6.git
+ * [new branch]      master -> master</code></pre>
+        </div>
+
+        <h3 class="mt-4 text-secondary">B.4. Sincronizar com Pull</h3>
+        [cite_start]<p>Se alguém alterar o ficheiro na plataforma GitHub, utilize `git pull` para trazer as alterações para o seu PC[cite: 232].</p>
+        <div class="code-block">
+            <p class="text-success small">CMD - Trazer do GitHub</p>
+            <pre><code>C:\GitLab\Projetos\novo6>git pull origin master</code></pre>
+        </div>
+
+        <h2 id="gh-pages" class="section-header text-primary">4. Fluxo C: Web Pages com GitHub (GitHub Pages)</h2>
+        [cite_start]<p class="mt-3">O GitHub Pages permite-lhe hospedar um website estático diretamente a partir do seu repositório[cite: 233].</p>
+        
+        <div class="card p-3 mb-4 bg-light">
+            <h4 class="card-title text-danger">Passos Chave para o GitHub Pages</h4>
+            <ol>
+                [cite_start]<li>Crie o REPO no GitHub[cite: 240].</li>
+                [cite_start]<li>Crie um **branch** com o nome **`gh-pages`** (ou use a branch `main` e defina-a nas *Settings*)[cite: 240].</li>
+                [cite_start]<li>Altere o *default branch* para **`gh-pages`** nas definições (Settings > Branches)[cite: 240].</li>
+                [cite_start]<li>Vá a **Settings > Pages** para aceder aos dados e configurações da página[cite: 240].</li>
+                <li>Trabalhe na branch `gh-pages` localmente.</li>
+                [cite_start]<li>Faça o **`push`** para a branch `gh-pages` remota para publicar o site[cite: 240].</li>
+            </ol>
+        </div>
+
+        <h3 class="mt-4 text-secondary">C.1. Fazer Push para a Branch de Publicação</h3>
+        [cite_start]<p>No terminal, depois de ter clonado o REPO (Passo A.1.) e feito o *commit* dos seus ficheiros web (`index.html`, etc.), envie-os para a branch **`gh-pages`**[cite: 240]:</p>
+        <div class="code-block">
+            <p class="text-success small">CMD - Enviar os ficheiros para a branch `gh-pages`</p>
+            <pre><code>C:\GitLab\Projetos\web1>git push origin gh-pages</code></pre>
+            <p class="text-warning small">Resposta:</p>
+            <pre><code>...
+To https://github.com/profcarlos2006/web1.git
+   b528447..a3a832c  gh-pages -> gh-pages</code></pre>
+        </div>
+        [cite_start]<p class="mt-3">Após alguns minutos, o seu site estará ativo no URL que aparece em **Settings > Pages**[cite: 240].</p>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
