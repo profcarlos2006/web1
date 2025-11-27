@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Exercícios Linux Interativo com Docker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .resolucao {
+            background-color: #e6ffed;
+            border-left: 4px solid #b3ffc6;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 3px;
+            display: none; /* Começa oculto */
+        }
+    </style>
+    <script>
+        function toggleResolution(id) {
+            var resolution = document.getElementById('resolucao-' + id);
+            var button = document.querySelector('.toggle-btn[onclick*="' + id + '"]');
+            if (resolution.style.display === "block") {
+                resolution.style.display = "none";
+                button.textContent = "Mostrar Resolução";
+            } else {
+                resolution.style.display = "block";
+                button.textContent = "Ocultar Resolução";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">⬅️ Voltar à Home</a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="../index.html">Index</a></li>
+                <li class="nav-item"><a class="nav-link" href="utilizarumshare.html">Utilizar um Share</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="bashlinux.html">Linux Comandos</a></li>
+                <li class="nav-item"><a class="nav-link" href="dockershare.html">Partilhar Imagem</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <h1 class="text-primary mb-4">Guia de Aprendizagem Linux com Docker</h1>
+
+        <p class="lead">Este ambiente de exercícios usa o Docker para lhe dar acesso a um **terminal Linux puro** sem alterar nada no seu computador. Perfeito para aprender!</p>
+
+        <h2 class="mt-5">1. Aceder ao Terminal Interativo (BASH)</h2>
+
+        <p>Execute o seguinte comando no seu terminal. Ele vai descarregar a imagem base **Ubuntu**, criar um contentor e entrar imediatamente no *shell* interativo.</p>
+
+        <div class="bg-dark text-white p-3 rounded">
+            <pre><code>docker run -it --rm ubuntu bash</code></pre>
+        </div>
+
+        <h3 class="mt-4">O Significado do Comando:</h3>
+        <ul>
+            <li><strong><code>-i</code> (interactive):</strong> Mantém o STDIN aberto.</li>
+            <li><strong><code>-t</code> (tty):</strong> Atribui um pseudo-terminal para interagir com a linha de comandos.</li>
+            <li><strong><code>--rm</code>:</strong> Remove automaticamente o contentor quando sair (Ideal para exercícios).</li>
+            <li><strong><code>ubuntu</code>:</strong> A imagem base do sistema operativo Linux.</li>
+        </ul>
+
+        <h2 class="mt-5">2. Ligar uma Pasta Local para Exercícios (-v)</h2>
+
+        <p>Se precisar que os ficheiros criados no contentor permaneçam no seu PC, utilize o argumento **<code>-v</code>** (Volume).</p>
+
+        <div class="bg-dark text-white p-3 rounded">
+            <pre><code>docker run -it --rm -v "$(pwd)/exercicios:/app" ubuntu bash</code></pre>
+            <p class="text-warning small mt-2">Nota: No Windows, o `$(pwd)` deve ser substituído pelo caminho completo da sua pasta.</p>
+        </div>
+
+        <h3 class="mt-4">O que faz o <code>-v "$(pwd)/exercicios:/app"</code>?</h3>
+        <ul>
+            <li>**`$(pwd)/exercicios`:** O caminho da pasta local no seu PC.</li>
+            <li>**`/app`:** O caminho dentro do contentor onde os seus ficheiros estarão disponíveis.</li>
+        </ul>
+        <p class="mt-2">Lembre-se de usar **`cd /app`** depois de entrar no terminal.</p>
+
+        <h2 class="mt-5">3. Exercícios Práticos de Comandos Linux</h2>
+
+        <p>Entre no seu contentor e comece a praticar!</p>
+
+        <div class="card p-3 mb-3">
+            <h3>Exercício 1: Navegação e Visualização</h3>
+            <ol>
+                <li>Qual o comando para saber em que diretório (pasta) se encontra?</li>
+                <li>Liste todos os ficheiros (incluindo os ocultos) do diretório raiz (`/`).</li>
+            </ol>
+            <button class="btn btn-success toggle-btn" onclick="toggleResolution(1)">Mostrar Resolução</button>
+            <div class="resolucao" id="resolucao-1">
+                <p><strong>Comandos:</strong></p>
+                <div class="bg-light p-2 rounded"><pre># 1. Onde estou:
+<strong>pwd</strong> 
+
+# 2. Listar ficheiros (incluindo ocultos):
+<strong>ls -la /</strong></pre></div>
+            </div>
+        </div>
+
+        <div class="card p-3 mb-3">
+            <h3>Exercício 2: Criar e Mudar</h3>
+            <ol>
+                <li>Crie um diretório chamado `documentos`.</li>
+                <li>Dentro de `documentos`, crie um subdiretório chamado `trabalho`.</li>
+                <li>Mude para o diretório `trabalho`.</li>
+                <li>Volte ao diretório anterior.</li>
+            </ol>
+            <button class="btn btn-success toggle-btn" onclick="toggleResolution(2)">Mostrar Resolução</button>
+            <div class="resolucao" id="resolucao-2">
+                <p><strong>Comandos:</strong></p>
+                <div class="bg-light p-2 rounded"><pre># 1. Criar o diretório:
+<strong>mkdir documentos</strong>
+
+# 2. Criar subdiretório:
+<strong>mkdir documentos/trabalho</strong> 
+
+# 3. Mudar para o diretório trabalho:
+<strong>cd documentos/trabalho</strong>
+
+# 4. Voltar ao diretório anterior:
+<strong>cd ..</strong></pre></div>
+            </div>
+        </div>
+
+        <div class="card p-3 mb-3">
+            <h3>Exercício 3: Ficheiros e Conteúdo</h3>
+            <ol>
+                <li>Crie um ficheiro vazio chamado `nota.txt`.</li>
+                <li>Use um comando para adicionar o texto "Hello World" a esse ficheiro.</li>
+                <li>Visualize o conteúdo completo do ficheiro na tela.</li>
+            </ol>
+            <button class="btn btn-success toggle-btn" onclick="toggleResolution(3)">Mostrar Resolução</button>
+            <div class="resolucao" id="resolucao-3">
+                <p><strong>Comandos:</strong></p>
+                <div class="bg-light p-2 rounded"><pre># 1. Criar ficheiro vazio:
+<strong>touch nota.txt</strong>
+
+# 2. Adicionar texto:
+<strong>echo "Hello World" > nota.txt</strong>
+
+# 3. Visualizar conteúdo:
+<strong>cat nota.txt</strong></pre></div>
+            </div>
+        </div>
+
+
+        <h2 class="mt-5">4. Dica: Sair do Contentor</h2>
+        <p>Para fechar o terminal e parar o contentor, basta digitar **`exit`**.</p>
+        <p class="text-muted">O contentor será removido automaticamente graças ao `–-rm`.</p>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

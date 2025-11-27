@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partilhar Imagem Docker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">⬅️ Voltar à Home</a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="../index.html">Index</a></li>
+                <li class="nav-item"><a class="nav-link" href="utilizarumshare.html">Utilizar um Share</a></li>
+                <li class="nav-item"><a class="nav-link" href="bashlinux.html">Linux Comandos</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="dockershare.html">Partilhar Imagem</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <h1 class="text-primary mb-4">Partilhar a Sua Imagem Docker</h1>
+
+        <p class="lead">Para partilhar a sua imagem Docker com outros utilizadores, deve seguir o processo de **construção e envio** (push) para um repositório público como o **Docker Hub**.</p>
+        
+        <hr>
+
+        <h2>Passo 1: Ficheiro de Construção (Dockerfile)</h2>
+        <p>Garantir que tem um **Dockerfile** que define como a sua imagem será construída:</p>
+        
+        <div class="bg-dark text-white p-3 rounded">
+            <pre><code># Usa uma imagem base leve do Nginx
+FROM nginx:alpine
+
+# Copia o seu ficheiro HTML para o contentor
+COPY index.html /usr/share/nginx/html/index.html
+            </code></pre>
+        </div>
+
+        <h2 class="mt-5">Passo 2: Construir e "Taggar" a Imagem</h2>
+        <p>Atribua um nome que inclua a sua conta do Docker Hub (Ex: `profcarlos2006/nginx-testedocker13:latest`):</p>
+        <div class="bg-dark text-white p-3 rounded">
+            <pre><code>docker build -t profcarlos2006/nginx-testedocker13:latest .
+            </code></pre>
+        </div>
+        
+        <p class="mt-3"><strong>Explicação:</strong></p>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong><code>-t</code></strong>: A *flag* para "tag", que atribui o nome e a versão.</li>
+            <li class="list-group-item"><strong><code>profcarlos2006/...</code></strong>: O seu nome de utilizador no Docker Hub.</li>
+            <li class="list-group-item"><strong><code>:latest</code></strong>: A "tag" ou versão da imagem.</li>
+            <li class="list-group-item"><strong><code>.</code></strong>: Indica que o Docker deve procurar o **Dockerfile** no diretório atual.</li>
+        </ul>
+
+        <h2 class="mt-5">Passo 3: Enviar a Imagem para o Docker Hub</h2>
+        <p>Faça o login e envie a imagem construída para o repositório público:</p>
+        <div class="bg-dark text-white p-3 rounded">
+            <pre><code>docker login
+# Insira o seu nome de utilizador e password
+docker push profcarlos2006/nginx-testedocker13:latest
+            </code></pre>
+        </div>
+        
+        <p class="mt-4"><strong>Como Outros Utilizadores Podem Usar:</strong></p>
+        <div class="alert alert-success">
+            <p>Qualquer pessoa pode descarregá-la e usá-la com:</p>
+            <pre class="bg-success text-white p-2 rounded"><code>docker run -p 8080:80 profcarlos2006/nginx-testedocker13:latest</code></pre>
+        </div>
+
+        <a href="../index.html" class="btn btn-primary mt-4">Voltar à página inicial</a>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
