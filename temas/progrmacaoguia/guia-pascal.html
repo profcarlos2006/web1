@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guia de Programação em Pascal</title>
+    <title>Guia Completo de Programação em Pascal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .code-block {
-            background-color: #272822; /* Fundo escuro para código */
+            background-color: #272822;
             color: #f8f8f2;
             padding: 15px;
             border-radius: 5px;
@@ -34,131 +34,248 @@
     </nav>
 
     <div class="container py-5">
-        <h1 class="text-primary mb-4">🖥️ Introdução à Linguagem Pascal</h1>
+        <h1 class="text-primary mb-4">📚 Guia Essencial: Linguagem de Programação Pascal</h1>
 
-        <p class="lead">Pascal é uma linguagem de programação estruturada, desenvolvida por Niklaus Wirth no final dos anos 60. É valorizada pela sua clareza, sintaxe rigorosa e por ser excelente para o ensino de conceitos de programação.</p>
+        <p class="lead">Pascal é fundamental para aprender **programação estruturada**. Este guia detalhado aborda desde a sintaxe básica até às estruturas de controlo e subprogramas, essenciais para o desenvolvimento de código robusto.</p>
+        <hr>
+        
+        <div class="card bg-light mb-5">
+            <div class="card-header">
+                <h5 class="mb-0">Índice</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="#estrutura" class="text-decoration-none">1. Estrutura e Declarações</a></li>
+                <li class="list-group-item"><a href="#tipos" class="text-decoration-none">2. Tipos de Dados e Variáveis</a></li>
+                <li class="list-group-item"><a href="#io" class="text-decoration-none">3. Input/Output e Atribuição</a></li>
+                <li class="list-group-item"><a href="#operadores" class="text-decoration-none">4. Operadores</a></li>
+                <li class="list-group-item"><a href="#controlo" class="text-decoration-none">5. Estruturas de Controlo de Fluxo</a></li>
+                <li class="list-group-item"><a href="#subprogramas" class="text-decoration-none">6. Funções e Procedimentos</a></li>
+                <li class="list-group-item"><a href="#arrays" class="text-decoration-none">7. Estruturas de Dados (Arrays)</a></li>
+            </ul>
+        </div>
+
+        
+        <h2 id="estrutura" class="mt-5 text-secondary">1. Estrutura Básica e Secções de Declaração</h2>
+        <p>A ordem das secções de declaração é obrigatória em Pascal.</p>
+        
+        <div class="code-block">
+            <pre><code>PROGRAM NomeDoPrograma; 
+USES Crt; (* Opcional: Para usar comandos de consola *)
+
+LABEL (* Para saltos, raramente usado em código moderno *)
+CONST (* Valores fixos: Pi = 3.14159; *)
+TYPE  (* Tipos de dados personalizados, ex: Arrays *)
+VAR   (* Declaração de todas as variáveis usadas *)
+    
+PROCEDURE/FUNCTION (* Subprogramas definidos pelo utilizador *)
+
+BEGIN (* Início do bloco de instruções principal *)
+    (* Código principal aqui *)
+END. (* Fim obrigatório com ponto final *)</code></pre>
+        </div>
+        
+        <h3 class="mt-4">Comentários</h3>
+        <p>Use parêntesis e asteriscos <code>(* ... *)</code> ou chavetas <code>{ ... }</code> para comentários. Em Free Pascal, <code>//</code> também é permitido.</p>
+
         <hr>
 
-        <h2 class="mt-5 text-secondary">1. Estrutura Básica de um Programa Pascal</h2>
-        <p>Um programa Pascal é definido pela palavra-chave <code>PROGRAM</code> e é sempre delimitado por <code>BEGIN</code> e <code>END</code>.</p>
-        
-        <div class="code-block">
-            <pre><code>PROGRAM OlaMundo;
-
-BEGIN
-    (* Comando para escrever na consola *)
-    WriteLn('Olá Mundo em Pascal!');
-    
-    (* O ponto final no último END termina o programa *)
-END.</code></pre>
-        </div>
-        
-        <h3 class="mt-4">Declaração de Variáveis</h3>
-        <p>Em Pascal, todas as variáveis devem ser declaradas antes de serem usadas, na secção <code>VAR</code>.</p>
-        <div class="code-block">
-            <pre><code>PROGRAM ExemploVar;
-VAR
-    idade: Integer;
-    nome: String;
-    salario: Real;
-
-BEGIN
-    (* O corpo do programa vai aqui *)
-END.</code></pre>
-        </div>
-        
-        ---
-
-        <h2 class="mt-5 text-secondary">2. Principais Tipos de Dados</h2>
-        <p>A tipagem forte de Pascal exige que o programador defina o tipo de informação que cada variável irá conter.</p>
+        <h2 id="tipos" class="mt-5 text-secondary">2. Tipos de Dados e Declaração de Variáveis</h2>
+        <p>A declaração de variáveis ocorre na secção **`VAR`** e segue a sintaxe: <code>NomeDaVariavel: Tipo;</code></p>
         
         <table class="table table-bordered table-striped">
             <thead class="table-info">
                 <tr>
                     <th>Tipo</th>
                     <th>Descrição</th>
-                    <th>Exemplo</th>
+                    <th>Exemplo de Declaração</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>**Integer**</td>
-                    <td>Números inteiros (sem casas decimais).</td>
-                    <td><code>150</code>, <code>-42</code></td>
+                    <td>Números inteiros.</td>
+                    <td>`i: Integer;`</td>
                 </tr>
                 <tr>
                     <td>**Real**</td>
-                    <td>Números de ponto flutuante (com casas decimais).</td>
-                    <td><code>3.14159</code>, <code>25.5</code></td>
+                    <td>Números de ponto flutuante (decimais).</td>
+                    <td>`preco: Real;`</td>
                 </tr>
                 <tr>
                     <td>**Char**</td>
-                    <td>Um único caractere alfanumérico.</td>
-                    <td><code>'A'</code>, <code>'9'</code></td>
+                    <td>Um único caractere, entre plicas.</td>
+                    <td>`inicial: Char;`</td>
                 </tr>
                 <tr>
                     <td>**String**</td>
-                    <td>Sequência de caracteres.</td>
-                    <td><code>'Portugal'</code></td>
+                    <td>Texto.</td>
+                    <td>`sobrenome: String;`</td>
                 </tr>
                 <tr>
                     <td>**Boolean**</td>
-                    <td>Valores lógicos (Verdadeiro ou Falso).</td>
-                    <td><code>True</code>, <code>False</code></td>
+                    <td>Valores lógicos (`True` ou `False`).</td>
+                    <td>`is_valid: Boolean;`</td>
                 </tr>
             </tbody>
         </table>
 
-        ---
+        <hr>
 
-        <h2 class="mt-5 text-secondary">3. Estruturas de Controlo de Fluxo</h2>
-        <p>As estruturas de controlo de fluxo permitem tomar decisões e executar blocos de código repetidamente.</p>
+        <h2 id="io" class="mt-5 text-secondary">3. Input/Output (I/O) e Atribuição</h2>
         
-        <h3 class="mt-4">3.1. Condição: IF-THEN-ELSE</h3>
-        <p>Executa um bloco de código se uma condição for verdadeira.</p>
+        <h3 class="mt-4">Atribuição de Valor (`:=`)</h3>
+        <p>O operador de atribuição em Pascal é **`:=`** (dois pontos seguido de igual). O sinal de igual **`=`** é usado apenas para comparação.</p>
         <div class="code-block">
-            <pre><code>IF (idade >= 18) THEN
-    WriteLn('Maior de idade')
-ELSE
-    WriteLn('Menor de idade');</code></pre>
+            <pre><code>x := 10; (* Atribui o valor 10 à variável x *)
+nome := 'João'; (* Atribui a string 'João' *)</code></pre>
+        </div>
+
+        <h3 class="mt-4">Comandos de Leitura e Escrita</h3>
+        <table class="table table-bordered table-striped">
+            <thead class="table-danger">
+                <tr>
+                    <th>Comando</th>
+                    <th>Função</th>
+                    <th>Exemplo de Uso</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>**`Write`**</td>
+                    <td>Escreve texto ou valor, **sem** saltar de linha.</td>
+                    <td>`Write('Nome: ');`</td>
+                </tr>
+                <tr>
+                    <td>**`WriteLn`**</td>
+                    <td>Escreve texto ou valor e **salta** para a linha seguinte.</td>
+                    <td>`WriteLn('Resultado: ', valor);`</td>
+                </tr>
+                <tr>
+                    <td>**`ReadLn`**</td>
+                    <td>Lê um valor do teclado e atribui-o à variável.</td>
+                    <td>`ReadLn(idade);`</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="operadores" class="mt-5 text-secondary">4. Operadores Aritméticos e Lógicos</h2>
+
+        <h3 class="mt-4">Operadores Aritméticos para Cálculos</h3>
+        <table class="table table-bordered table-sm">
+            <thead class="table-warning">
+                <tr><th>Operador</th><th>Significado</th><th>Notas</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>**`/`**</td><td>Divisão Real</td><td>O resultado é sempre `Real`.</td></tr>
+                <tr><td>**`DIV`**</td><td>Divisão Inteira</td><td>Retorna a parte inteira do quociente.</td></tr>
+                <tr><td>**`MOD`**</td><td>Resto da Divisão</td><td>Retorna o resto da divisão inteira.</td></tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="controlo" class="mt-5 text-secondary">5. Estruturas de Controlo de Fluxo</h2>
+        
+        <h3 class="mt-4">5.1. Condição Múltipla: CASE OF</h3>
+        <p>Estrutura eficiente para substituir várias instruções <code>IF-THEN-ELSE IF</code>, baseada no valor de uma expressão.</p>
+        <div class="code-block">
+            <pre><code>CASE opcao OF
+    1: WriteLn('Escolheu Opção 1');
+    2, 3: WriteLn('Escolheu 2 ou 3'); (* Múltiplos valores *)
+    'S': WriteLn('Sim');
+    ELSE
+        WriteLn('Opção inválida.');
+END; (* Deve ser terminado com END; *)</code></pre>
         </div>
         
-        <h3 class="mt-4">3.2. Ciclo: FOR-DO</h3>
-        <p>Repete uma ação um número predefinido de vezes.</p>
+        <h3 class="mt-4">5.2. Ciclo Repetição Controlada: FOR-DO</h3>
+        <p>Usado quando o número de iterações é conhecido. A variável de ciclo (i) deve ser `Integer` ou `Char`.</p>
         <div class="code-block">
-            <pre><code>FOR i := 1 TO 5 DO
+            <pre><code>(* Contagem crescente: de 1 até 10 *)
+FOR i := 1 TO 10 DO
+    WriteLn(i); 
+
+(* Contagem decrescente: de 10 até 1 *)
+FOR j := 10 DOWNTO 1 DO
 BEGIN
-    WriteLn('Contagem: ', i);
+    WriteLn(j);
 END;</code></pre>
         </div>
-        
-        <h3 class="mt-4">3.3. Ciclo: WHILE-DO</h3>
-        <p>Repete uma ação enquanto uma condição for verdadeira.</p>
+
+        <h3 class="mt-4">5.3. Ciclos Condicionais (WHILE e REPEAT)</h3>
+        <p>Para iterações onde o número de repetições não é fixo.</p>
         <div class="code-block">
-            <pre><code>WHILE (contador < 10) DO
+            <pre><code>(* WHILE-DO: Condição testada ANTES. Pode não executar nenhuma vez. *)
+WHILE (i < 10) DO
 BEGIN
-    WriteLn(contador);
-    contador := contador + 1;
-END;</code></pre>
+    i := i + 1;
+END; 
+
+(* REPEAT-UNTIL: Condição testada DEPOIS. Executa PELO MENOS uma vez. *)
+REPEAT
+    i := i + 1;
+UNTIL (i = 10);</code></pre>
         </div>
 
-        ---
-
-        <h2 class="mt-5 text-secondary">4. Funções e Procedimentos</h2>
-        <p>Em Pascal, blocos de código reutilizáveis são chamados de **Procedimentos** (não retornam valor) ou **Funções** (retornam um valor).</p>
+        <hr>
         
-        <h3 class="mt-4">Exemplo de Procedimento</h3>
+        <h2 id="subprogramas" class="mt-5 text-secondary">6. Funções e Procedimentos (Subprogramas)</h2>
+        <p>Subprogramas promovem a modularidade e reutilização de código.</p>
+
+        <h3 class="mt-4">Procedimento (Não Retorna Valor)</h3>
         <div class="code-block">
-            <pre><code>PROCEDURE Saudacao(nome: String);
+            <pre><code>PROCEDURE MostrarMensagem(texto: String);
 BEGIN
-    WriteLn('Olá, ', nome, '!');
+    WriteLn('==> ', texto, ' <==');
 END;
 
 BEGIN
-    Saudacao('Ana'); 
+    MostrarMensagem('Isto é um procedimento.');
+END.</code></pre>
+        </div>
+        
+        <h3 class="mt-4">Função (Retorna um Valor)</h3>
+        <p>A Função deve retornar um valor do tipo especificado no cabeçalho. O resultado é atribuído ao nome da própria função.</p>
+        <div class="code-block">
+            <pre><code>FUNCTION Somar(a, b: Integer): Integer;
+BEGIN
+    Somar := a + b; (* O nome da função recebe o valor de retorno *)
+END;
+
+VAR
+    resultado: Integer;
+BEGIN
+    resultado := Somar(5, 7);
+    WriteLn('A soma é: ', resultado);
 END.</code></pre>
         </div>
 
+        <hr>
+
+        <h2 id="arrays" class="mt-5 text-secondary">7. Estruturas de Dados: Arrays (Vetores)</h2>
+        <p>Um **Array** é uma coleção de itens do mesmo tipo de dados, armazenados em posições contíguas e acessíveis através de um índice.</p>
+        
+        <h3 class="mt-4">Declaração e Uso</h3>
+        <div class="code-block">
+            <pre><code>VAR
+    notas: ARRAY[1..5] OF Real; (* Array com 5 posições, de índice 1 a 5 *)
+    nomes: ARRAY[0..99] OF String; (* Array com 100 posições, de 0 a 99 *)
+    
+BEGIN
+    (* Atribuir valores a posições específicas *)
+    notas[1] := 18.5;
+    notas[5] := 10.0;
+    
+    (* Aceder ao valor *)
+    WriteLn('A primeira nota é: ', notas[1]:0:1);
+    
+    (* Usar um ciclo para percorrer o Array *)
+    FOR i := 1 TO 5 DO
+        WriteLn('Nota ', i, ': ', notas[i]:0:1);
+END.</code></pre>
+        </div>
 
         <p class="mt-5"><a href="../index.html" class="btn btn-primary btn-lg">Voltar à página inicial</a></p>
     </div>
